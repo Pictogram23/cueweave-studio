@@ -11,4 +11,6 @@ export type CueWeaveEvent = {
 export type CueWeaveAction = {
   type: "play";
   clipId: string;
+  volume: number;
+  pitch: number;
 };

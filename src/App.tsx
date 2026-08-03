@@ -8,7 +8,12 @@ import type {
 const createEmptyAction = (): CueWeaveAction => ({
   type: "play",
   clipId: "",
+  volume: 1,
+  pitch: 1,
 });
+
+const clamp = (value: number, min: number, max: number): number =>
+  Math.min(max, Math.max(min, value));
 
 const createEmptyEvent = (): CueWeaveEvent => ({
   name: "",
@@ -23,6 +28,8 @@ function App() {
         {
           type: "play",
           clipId: "player_damage",
+          volume: 1,
+          pitch: 1,
         },
       ],
     },
@@ -103,6 +110,62 @@ function App() {
     );
   };
 
+  const updateActionVolume = (
+    eventIndex: number,
+    actionIndex: number,
+    volume: number,
+  ): void => {
+    if (!Number.isFinite(volume)) {
+      return;
+    }
+
+    setEvents((currentEvents) =>
+      currentEvents.map((eventItem, index) =>
+        index === eventIndex
+          ? {
+              ...eventItem,
+              actions: eventItem.actions.map((action, index) =>
+                index === actionIndex
+                  ? {
+                      ...action,
+                      volume: clamp(volume, 0, 1),
+                    }
+                  : action,
+              ),
+            }
+          : eventItem,
+      ),
+    );
+  };
+
+  const updateActionPitch = (
+    eventIndex: number,
+    actionIndex: number,
+    pitch: number,
+  ): void => {
+    if (!Number.isFinite(pitch)) {
+      return;
+    }
+
+    setEvents((currentEvents) =>
+      currentEvents.map((eventItem, index) =>
+        index === eventIndex
+          ? {
+              ...eventItem,
+              actions: eventItem.actions.map((action, index) =>
+                index === actionIndex
+                  ? {
+                      ...action,
+                      pitch: clamp(pitch, 0.1, 3),
+                    }
+                  : action,
+              ),
+            }
+          : eventItem,
+      ),
+    );
+  };
+
   const exportProject = (): void => {
     const project: CueWeaveProject = {
       formatVersion: 1,
@@ -155,6 +218,8 @@ function App() {
                 <div className="action-list">
                   {eventItem.actions.map((action, actionIndex) => {
                     const clipIdInputId = `clip-id-${eventIndex}-${actionIndex}`;
+                    const volumeInputId = `volume-${eventIndex}-${actionIndex}`;
+                    const pitchInputId = `pitch-${eventIndex}-${actionIndex}`;
 
                     return (
                       <section className="action-card" key={actionIndex}>
@@ -180,6 +245,48 @@ function App() {
                               );
                             }}
                           />
+                        </div>
+
+                        <div className="parameter-fields">
+                          <div className="field">
+                            <label htmlFor={volumeInputId}>Volume</label>
+
+                            <input
+                              id={volumeInputId}
+                              type="number"
+                              min="0"
+                              max="1"
+                              step="0.1"
+                              value={action.volume}
+                              onChange={(event) => {
+                                updateActionVolume(
+                                  eventIndex,
+                                  actionIndex,
+                                  event.target.valueAsNumber,
+                                );
+                              }}
+                            />
+                          </div>
+
+                          <div className="field">
+                            <label htmlFor={pitchInputId}>Pitch</label>
+
+                            <input
+                              id={pitchInputId}
+                              type="number"
+                              min="0.1"
+                              max="3"
+                              step="0.1"
+                              value={action.pitch}
+                              onChange={(event) => {
+                                updateActionPitch(
+                                  eventIndex,
+                                  actionIndex,
+                                  event.target.valueAsNumber,
+                                );
+                              }}
+                            />
+                          </div>
                         </div>
 
                         <button

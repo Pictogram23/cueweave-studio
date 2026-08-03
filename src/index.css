@@ -115,6 +115,13 @@ button {
   color: #444;
 }
 
+.parameter-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 560px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -159,5 +166,9 @@ button {
   .event-actions,
   .action-card {
     padding: 14px;
+  }
+
+  .parameter-fields {
+    grid-template-columns: 1fr;
   }
 }
