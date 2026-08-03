@@ -29,7 +29,21 @@ h2 {
   font-size: 1.15rem;
 }
 
-label {
+h3,
+h4 {
+  margin: 0;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h4 {
+  font-size: 0.95rem;
+}
+
+label,
+.field-label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
@@ -72,6 +86,35 @@ button {
   max-width: 560px;
 }
 
+.event-actions {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.action-list {
+  display: grid;
+  gap: 12px;
+}
+
+.action-card {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid #d8d8d8;
+  border-left: 4px solid #777;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.action-type {
+  display: inline-block;
+  color: #444;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -79,12 +122,42 @@ button {
   margin-top: 24px;
 }
 
-.remove-button {
+.add-action-button,
+.remove-action-button,
+.remove-event-button {
   justify-self: start;
+}
+
+.add-action-button {
+  border-color: #777;
+  font-weight: 600;
+}
+
+.remove-action-button {
+  color: #8a2f2f;
+}
+
+.remove-event-button {
+  margin-top: 4px;
+  border-color: #8a2f2f;
+  color: #8a2f2f;
+  font-weight: 600;
 }
 
 .export-button {
   background: #222;
   border-color: #222;
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 32px 16px;
+  }
+
+  .event-card,
+  .event-actions,
+  .action-card {
+    padding: 14px;
+  }
 }
