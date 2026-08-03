@@ -10,14 +10,81 @@ body {
   margin: 0;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 main {
   max-width: 960px;
   margin: 0 auto;
   padding: 48px 24px;
 }
 
+h1 {
+  margin: 0 0 32px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  font: inherit;
+  background: #fff;
+}
+
 button {
   padding: 8px 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 6px;
   font: inherit;
   cursor: pointer;
+  background: #fff;
+}
+
+.events-list {
+  display: grid;
+  gap: 20px;
+}
+
+.event-card {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.field {
+  max-width: 560px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.remove-button {
+  justify-self: start;
+}
+
+.export-button {
+  background: #222;
+  border-color: #222;
+  color: #fff;
 }
